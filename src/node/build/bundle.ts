@@ -45,7 +45,9 @@ export async function bundle(
     plugins: [
       ...createVitePressPlugin(root, config, ssr, pageToHashMap),
       Components({
-        dirs: [path.resolve(__dirname, '../client/theme-default/components')],
+        dirs: [
+          path.resolve(__dirname, '../../client/theme-default/components')
+        ],
         customLoaderMatcher: (id) => id.endsWith('.md'),
         customComponentResolvers: [
           ViteIconsResolver({

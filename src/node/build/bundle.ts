@@ -5,6 +5,10 @@ import { APP_PATH } from '../alias'
 import { SiteConfig } from '../config'
 import { RollupOutput } from 'rollup'
 import { build, BuildOptions, UserConfig as ViteUserConfig } from 'vite'
+import WindiCSS from 'vite-plugin-windicss'
+import aspectRatio from 'windicss/plugin/aspect-ratio'
+import Components from 'vite-plugin-components'
+import Icons, { ViteIconsResolver } from 'vite-plugin-icons'
 import { createVitePressPlugin } from '../plugin'
 
 export const okMark = '\x1b[32m✓\x1b[0m'
@@ -38,7 +42,29 @@ export async function bundle(
     root: srcDir,
     base: config.site.base,
     logLevel: 'warn',
-    plugins: createVitePressPlugin(root, config, ssr, pageToHashMap),
+    plugins: [
+      ...createVitePressPlugin(root, config, ssr, pageToHashMap),
+      Components({
+        dirs: [path.resolve(__dirname, '../theme/components')],
+        customLoaderMatcher: (id) => id.endsWith('.md'),
+        customComponentResolvers: [
+          ViteIconsResolver({
+            componentPrefix: ''
+          })
+        ]
+      }),
+      Icons(),
+      WindiCSS({
+        config: {
+          extract: {
+            include: ['**/*.md', '**/*.vue']
+          },
+          attributify: true,
+          plugins: [aspectRatio],
+          preflight: false
+        }
+      })
+    ],
     // @ts-ignore
     ssr: {
       noExternal: ['vitepress']

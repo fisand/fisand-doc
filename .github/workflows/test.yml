@@ -21,3 +21,13 @@ jobs:
       - name: build
         run: |
           yarn build
+      - name: Build docs
+        run: yarn docs-build
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@3.7.1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages
+          FOLDER: docs/.vitepress/dist
+          GIT_CONFIG_NAME: fisandBot
+          COMMIT_MESSAGE: website deploy

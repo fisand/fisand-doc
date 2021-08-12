@@ -57,7 +57,12 @@ export async function bundle(
       WindiCSS({
         config: {
           extract: {
-            include: ['**/*.md', '**/*.vue']
+            include: [
+              '**/*.md',
+              '**/*.vue',
+              `${process.cwd()}/**/*.md`,
+              `${process.cwd()}/**/*.vue`
+            ]
           },
           attributify: true,
           plugins: [aspectRatio],

@@ -32,7 +32,12 @@ export async function createServer(
       WindiCSS({
         config: {
           extract: {
-            include: ['**/*.md', '**/*.vue']
+            include: [
+              '**/*.md',
+              '**/*.vue',
+              `${process.cwd()}/**/*.md`,
+              `${process.cwd()}/**/*.vue`
+            ]
           },
           attributify: true,
           plugins: [aspectRatio],
@@ -40,6 +45,11 @@ export async function createServer(
         }
       })
     ],
-    server: serverOptions
+    server: {
+      ...serverOptions,
+      fs: {
+        allow: ['..']
+      }
+    }
   })
 }

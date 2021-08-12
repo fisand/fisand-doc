@@ -82,7 +82,7 @@ h1 {
 h2 {
   margin-top: 2.25rem;
   margin-bottom: 1.25rem;
-  border-bottom: 1px solid var(--c-divider);
+  border-bottom: 1px solid transparent;
   padding-bottom: 0.3rem;
   line-height: 1.25;
   font-size: 1.65rem;
@@ -99,7 +99,13 @@ h3 {
 }
 
 h4 {
+  margin-top: 1.6rem;
   font-size: 1.15rem;
+}
+
+h5 {
+  margin-top: 1.2rem;
+  font-size: 1rem;
 }
 
 p,
@@ -167,20 +173,24 @@ table {
   border-collapse: collapse;
   margin: 1rem 0;
   overflow-x: auto;
-}
-
-tr {
-  border-top: 1px solid #dfe2e5;
+  @apply
+    font-mono text-sm my-4 overflow-x-auto border-collapse
+    relative table-auto whitespace-pre-wrap;
 }
 
 tr:nth-child(2n) {
-  background-color: #f6f8fa;
+  @apply bg-gray-400 bg-opacity-2;
+}
+
+thead th {
+  @apply font-sans;
+  @apply text-left;
 }
 
 th,
 td {
-  border: 1px solid #dfe2e5;
-  padding: 0.6em 1em;
+  border-bottom: 1px solid var(--c-divider-light);
+  @apply px-2 py-1 break-words overflow-hidden md:(px-4 py-2 break-normal);
 }
 
 blockquote {
@@ -233,4 +243,51 @@ form {
   display: none;
   width: 100vw;
   height: 100vh;
+}
+
+.nav-btn {
+  display: flex;
+  font-size: 1.05rem;
+  border: 0;
+  outline: none;
+  background: none;
+  color: var(--c-text);
+  opacity: 0.8;
+  cursor: pointer;
+}
+.nav-btn:hover {
+  opacity: 1;
+}
+.nav-btn svg {
+  display: block;
+  margin: auto;
+}
+
+.external-link {
+  font-size: 0.95rem;
+  opacity: 0.7;
+}
+
+.icon-btn {
+  @apply inline-block cursor-pointer select-none !outline-none;
+  @apply opacity-75 transition duration-200 ease-in-out align-middle rounded p-2;
+  @apply hover:(opacity-100 bg-gray-400 bg-opacity-10);
+}
+
+.icon-btn.disabled {
+  @apply opacity-25 pointer-events-none;
+}
+
+.inline-icon-btn {
+  @apply inline-block rounded p-0.5 text-2xl align-middle;
+  @apply border border-opacity-20 border-solid;
+}
+
+p > img {
+  @apply rounded-2xl;
+}
+
+li > svg {
+  vertical-align: middle;
+  transform: translateY(-10%);
 }

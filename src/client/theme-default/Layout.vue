@@ -84,7 +84,7 @@ const pageClasses = computed(() => {
 
 <template>
   <div class="theme" :class="pageClasses">
-    <NavBar v-if="showNavbar" @toggle="toggleSidebar">
+    <NavBar v-if="showNavbar" :show-sidebar="showSidebar" @toggle="toggleSidebar">
       <template #search>
         <slot name="navbar-search">
           <AlgoliaSearchBox

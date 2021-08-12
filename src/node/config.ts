@@ -134,8 +134,8 @@ export async function resolveSiteData(
   userConfig = userConfig || (await resolveUserConfig(root))
   return {
     lang: userConfig.lang || 'en-US',
-    title: userConfig.title || 'VitePress',
-    description: userConfig.description || 'A VitePress site',
+    title: userConfig.title || 'fisand-doc',
+    description: userConfig.description || 'A fisand-doc site',
     base: userConfig.base ? userConfig.base.replace(/([^/])$/, '$1/') : '/',
     head: userConfig.head || [],
     themeConfig: userConfig.themeConfig || {},

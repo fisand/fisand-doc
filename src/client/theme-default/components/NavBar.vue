@@ -1,14 +1,41 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+import { useWindowScroll } from '@vueuse/core'
+import { useRepo } from '../composables/repo'
 import NavBarTitle from './NavBarTitle.vue'
 import NavLinks from './NavLinks.vue'
 import ToggleSideBarButton from './ToggleSideBarButton.vue'
+import GithubLink from './GithubLink.vue'
+import DarkSwitch from './DarkSwitch.vue'
+import LangSwitch from './LangSwitch.vue'
 
 defineEmits(['toggle'])
+
+defineProps({
+  showSidebar: { type: Boolean, required: true },
+})
+
+const repo = useRepo()
+const isGithub = () =>
+  repo.value?.text.toLowerCase() === 'github'
+
+const { y } = useWindowScroll()
+const shadowStyle = computed(() => {
+  return {
+    boxShadow: `0 0 5px rgb(10 16 20 / ${
+      y.value / 10 > 10 ? 10 : y.value / 10
+    }%)`,
+  }
+})
 </script>
 
 <template>
-  <header class="nav-bar">
-    <ToggleSideBarButton @toggle="$emit('toggle')" />
+  <header
+    class="nav-bar"
+    :class="[!showSidebar ? 'pl-1.5rem' : 'pl-16']"
+    :style="shadowStyle"
+  >
+    <ToggleSideBarButton v-show="showSidebar" @toggle="$emit('toggle')" />
 
     <NavBarTitle />
 
@@ -16,6 +43,12 @@ defineEmits(['toggle'])
 
     <div class="nav">
       <NavLinks />
+    </div>
+
+    <div class="nav-icons flex items-center gap-2">
+      <GithubLink v-if="repo && isGithub()" :item="repo" />
+      <DarkSwitch />
+      <LangSwitch />
     </div>
 
     <slot name="search" />
@@ -32,7 +65,7 @@ defineEmits(['toggle'])
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid var(--c-divider);
+  border-bottom: 1px solid transparent;
   padding: 0.7rem 1.5rem 0.7rem 4rem;
   height: var(--header-height);
   background-color: var(--c-bg);

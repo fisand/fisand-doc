@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useData, withBase } from 'vitepress'
+import { computed, ref, onMounted } from 'vue'
+import { useData } from 'vitepress'
 import NavLink from './NavLink.vue'
+import { mouseFollow } from '../effects/mouse-follow'
 
 const { site, frontmatter } = useData()
 
@@ -17,37 +18,66 @@ const showHero = computed(() => {
 })
 
 const heroText = computed(() => frontmatter.value.heroText || site.value.title)
+
+const container = ref<HTMLElement>()
+const inner = ref<HTMLElement>()
+
+onMounted(() => {
+  mouseFollow(container.value, inner.value)
+  if (frontmatter.value.heroBanner) {
+    fetch(frontmatter.value.heroBanner).then(res => res.text()).then((text) => {
+      inner.value && (inner.value.innerHTML = text.replace('<svg', '<svg style="width: 100%"'))
+    })
+  }
+})
 </script>
 
 <template>
   <header v-if="showHero" class="home-hero">
-    <figure v-if="frontmatter.heroImage" class="figure">
-      <img
-        class="image"
-        :src="withBase(frontmatter.heroImage)"
-        :alt="frontmatter.heroAlt"
-      />
-    </figure>
+    <section class="
+        container
+        mx-auto
+        flex
+        <lg:flex-row
+        <lg:justify-center
+        <md:flex-col
+        <md:items-center
+      "
+    >
+      <div v-if="frontmatter.heroBanner" ref="container" class="w-1/2 <sm:w-auto">
+        <div ref="inner" class="inner w-full h-full">
+          <img
+            v-if="!frontmatter.heroBanner.endsWith('.svg')"
+            :src="frontmatter.heroBanner"
+            class="block"
+          >
+        </div>
+      </div>
+      <div class="w-1/2 flex flex-col justify-center items-start p-16 <sm:w-full <sm:items-center <sm:p-0">
+        <p v-if="heroText" class="relative font-sans text-6xl <md:text-3xl <md:text-center <md:w-full">
+          {{ heroText }} <sub v-if="frontmatter.heroSub" class="absolute top-0 -right-12 text-2xl animate-text <sm:text-sm <sm:right-12">next</sub>
+        </p>
+        <p v-if="frontmatter.tagline" class="text-base text-gray-500 lg:text-left">
+          {{ frontmatter.tagline }}
+        </p>
+        <div class="home-text-action <sm:w-full <sm:flex <sm:flex-col">
+          <NavLink
+            v-if="frontmatter.actionLink && frontmatter.actionText"
+            :item="{ link: frontmatter.actionLink, text: frontmatter.actionText }"
+            class="action overflow-hidden rounded-full"
+          />
 
-    <h1 v-if="heroText" id="main-title" class="title">{{ heroText }}</h1>
-    <p v-if="frontmatter.tagline" class="description">
-      {{ frontmatter.tagline }}
-    </p>
-
-    <NavLink
-      v-if="frontmatter.actionLink && frontmatter.actionText"
-      :item="{ link: frontmatter.actionLink, text: frontmatter.actionText }"
-      class="action"
-    />
-
-    <NavLink
-      v-if="frontmatter.altActionLink && frontmatter.altActionText"
-      :item="{
-        link: frontmatter.altActionLink,
-        text: frontmatter.altActionText
-      }"
-      class="action alt"
-    />
+          <NavLink
+            v-if="frontmatter.altActionLink && frontmatter.altActionText"
+            :item="{
+              link: frontmatter.altActionLink,
+              text: frontmatter.altActionText
+            }"
+            class="action alt overflow-hidden rounded-full <md:ml-0 lg:ml-4"
+          />
+        </div>
+      </div>
+    </section>
   </header>
 </template>
 
@@ -119,9 +149,9 @@ const heroText = computed(() => frontmatter.value.heroText || site.value.title)
   display: inline-block;
 }
 
-.action.alt {
+/* .action.alt {
   margin-left: 1.5rem;
-}
+} */
 
 @media (min-width: 420px) {
   .action {
@@ -139,7 +169,8 @@ const heroText = computed(() => frontmatter.value.heroText || site.value.title)
   font-weight: 500;
   color: var(--c-bg);
   background-color: var(--c-brand);
-  border: 2px solid var(--c-brand);
+  border: 1px solid var(--c-brand);
+  border-radius: inherit;
   transition: background-color 0.1s ease;
 }
 
@@ -150,8 +181,8 @@ const heroText = computed(() => frontmatter.value.heroText || site.value.title)
 
 .action :deep(.item:hover) {
   text-decoration: none;
-  color: var(--c-bg);
-  background-color: var(--c-brand-light);
+  /* color: var(--c-bg);
+  background-color: var(--c-brand-light); */
 }
 
 @media (min-width: 420px) {
@@ -161,5 +192,39 @@ const heroText = computed(() => frontmatter.value.heroText || site.value.title)
     font-size: 1.2rem;
     font-weight: 500;
   }
+}
+.font-sans {
+  font-family: DINAlternate-Bold;
+}
+.rounded-full :deep(.item) {
+  width: 140px;
+}
+
+.inner {
+  transition: transform 0.5s;
+}
+
+.animate-text {
+  animation: animate 2s linear infinite;
+}
+
+@keyframes animate {
+  0%, 100% {
+    text-shadow: -1px -1px 0 #0ff, 1px 1px 0 #f00;
+  }
+  25% {
+    text-shadow: 1px 1px 0 #0ff, -1px -1px 0 #f00;
+  }
+  50% {
+    text-shadow: 1px -1px 0 #0ff, 1px -1px 0 #f00;
+  }
+  75% {
+    text-shadow: -1px 1px 0 #0ff, -1px 1px 0 #f00;
+  }
+}
+
+.svg-wrapper svg {
+  width: 100%;
+  height: 100%;
 }
 </style>

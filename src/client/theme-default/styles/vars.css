@@ -15,8 +15,8 @@
   --c-text-light-2: #476582;
   --c-text-light-3: #90a4b7;
 
-  --c-brand: #3eaf7c;
-  --c-brand-light: #4abf8a;
+  --c-brand: #198cff;
+  --c-brand-light: #99caf3;
 
   /**
    * Typography
@@ -71,4 +71,25 @@
   --code-font-size: 14px;
   --code-inline-bg-color: rgba(27, 31, 35, 0.05);
   --code-bg-color: #282c34;
+
+  --sidebar-width: 17.5rem;
+  --slug-width: 10rem;
+}
+
+html.dark {
+  --c-bg: #111;
+  --c-bg-semi: rgba(17,17,17,0.8);
+  --c-bg-secondary: #222;
+  --c-text: #f5f7fa;
+  --c-text-light: #f9f9f9;
+  --c-text-lighter: #ffffff;
+
+  --c-divider-light: rgba(200, 200, 200, .12);
+  --c-divider-dark: rgba(200, 200, 200, .48);
+  --code-bg-color: #191919;
+  --code-inline-bg-color: rgba(255, 255, 255, .04);
+  --code-highlight: rgba(0, 0, 0, .66);
+
+  --c-disabled-bg: #333;
+  --c-disabled-fg: #aaa;
 }

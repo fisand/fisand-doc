@@ -36,8 +36,9 @@ import NextAndPrevLinks from './NextAndPrevLinks.vue'
 
 .container {
   margin: 0 auto;
+  margin-right: var(--slug-width);
   padding: 0 1.5rem 4rem;
-  max-width: 48rem;
+  max-width: calc(100% - var(--slug-width));
 }
 
 .content {

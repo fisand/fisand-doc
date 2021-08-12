@@ -9,10 +9,10 @@ hereSup:
 tagline: MFE文档工具
 
 actionText: 开始使用
-actionLink: /readme
+actionLink: /use
 
 altActionText: 了解更多
-altActionLink: /
+altActionLink: /use
 
 footer: '@fisand'
 ---

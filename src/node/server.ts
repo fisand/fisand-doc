@@ -20,7 +20,7 @@ export async function createServer(
     plugins: [
       ...createVitePressPlugin(root, config),
       Components({
-        dirs: [path.resolve(__dirname, '../theme/components')],
+        dirs: [path.resolve(__dirname, '../client/theme-default/components')],
         customLoaderMatcher: (id) => id.endsWith('.md'),
         customComponentResolvers: [
           ViteIconsResolver({

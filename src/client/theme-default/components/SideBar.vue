@@ -14,6 +14,10 @@ defineProps<{ open: boolean }>()
     <SideBarLinks />
 
     <slot name="sidebar-bottom" />
+
+    <ClientOnly>
+      <Slugs />
+    </ClientOnly>
   </aside>
 </template>
 

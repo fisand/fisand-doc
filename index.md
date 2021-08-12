@@ -13,5 +13,5 @@ actionLink: /readme
 altActionText: 了解更多
 altActionLink: /
 
-footer: '@zouhang'
+footer: '@fisand'
 ---

@@ -56,13 +56,13 @@ export function mouseFollow(containerEl, innerEl) {
   var update = function (event: any) {
     mouse.updatePosition(event)
     updateTransformStyle(
-      (mouse.y / inner.offsetHeight / 2).toFixed(2),
-      (mouse.x / inner.offsetWidth / 2).toFixed(2)
+      (mouse.x / inner.offsetHeight / 2).toFixed(2),
+      (mouse.y / inner.offsetWidth / 2).toFixed(2)
     )
   }
 
   var updateTransformStyle = function (x: any, y: any) {
-    var style = 'rotateX(' + x * 40 + 'deg) rotateY(' + y * 40 + 'deg)'
+    var style = `translate(${-x * 50}px, ${y * 50}px)`
     inner.style.transform = style
     inner.style.webkitTransform = style
     inner.style.mozTranform = style

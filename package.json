@@ -1,6 +1,6 @@
 {
   "name": "fisand-doc",
-  "version": "0.16.1",
+  "version": "0.0.1-alpha.0",
   "description": "Vite & Vue powered static site generator",
   "main": "dist/node/index.js",
   "typings": "types/index.d.ts",

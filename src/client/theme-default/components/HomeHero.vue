@@ -54,10 +54,10 @@ onMounted(() => {
         </div>
       </div>
       <div class="w-1/2 flex flex-col justify-center items-start p-16 <sm:w-full <sm:items-center <sm:p-0">
-        <p v-if="heroText" class="relative font-sans text-6xl <md:text-3xl <md:text-center <md:w-full">
+        <p v-if="heroText" class="relative font-sans text-6xl <md:text-3xl <md:text-center w-full lg:text-left">
           {{ heroText }} <sub v-if="frontmatter.heroSub" class="absolute top-0 -right-12 text-2xl animate-text <sm:text-sm <sm:right-12">next</sub>
         </p>
-        <p v-if="frontmatter.tagline" class="text-base text-gray-500 lg:text-left">
+        <p v-if="frontmatter.tagline" class="text-base text-gray-500 <sm:w-full lg:text-left">
           {{ frontmatter.tagline }}
         </p>
         <div class="home-text-action <sm:w-full <sm:flex <sm:flex-col">

@@ -24,13 +24,13 @@ import NextAndPrevLinks from './NextAndPrevLinks.vue'
 
 @media (min-width: 720px) {
   .page {
-    margin-left: 16.4rem;
+    margin-left: var(--sidebar-width);
   }
 }
 
 @media (min-width: 960px) {
   .page {
-    margin-left: 20rem;
+    margin-left: var(--sidebar-width);
   }
 }
 
@@ -39,6 +39,13 @@ import NextAndPrevLinks from './NextAndPrevLinks.vue'
   margin-right: var(--slug-width);
   padding: 0 1.5rem 4rem;
   max-width: calc(100% - var(--slug-width));
+}
+
+@media (max-width: 1280px) {
+  .container {
+    margin-right: auto;
+    max-width: 100%;
+  }
 }
 
 .content {

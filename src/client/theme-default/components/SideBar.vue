@@ -42,11 +42,11 @@ defineProps<{ open: boolean }>()
   }
 }
 
-@media (min-width: 960px) {
+/* @media (min-width: 960px) {
   .sidebar {
     width: 20rem;
   }
-}
+} */
 
 .sidebar.open {
   transform: translateX(0);

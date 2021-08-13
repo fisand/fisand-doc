@@ -13,3 +13,5 @@ yarn add fisand-doc
 ```bash
 fisandoc
 ```
+
+<demo src="./test.vue" />

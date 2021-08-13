@@ -11,6 +11,7 @@ import { hoistPlugin } from './plugins/hoist'
 import { preWrapperPlugin } from './plugins/preWrapper'
 import { linkPlugin } from './plugins/link'
 import { extractHeaderPlugin } from './plugins/header'
+import { demoPlugin } from './plugins/demo'
 import { Header } from '../shared'
 
 const emoji = require('markdown-it-emoji')
@@ -82,6 +83,7 @@ export const createMarkdownRenderer = (
       format: parseHeader,
       ...options.toc
     })
+    .use(demoPlugin)
 
   // apply user config
   if (options.config) {

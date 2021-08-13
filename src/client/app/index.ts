@@ -16,6 +16,8 @@ import { usePrefetch } from './composables/preFetch'
 import { dataSymbol, initData } from './data'
 import { Content } from './components/Content'
 import { ClientOnly } from './components/ClientOnly'
+import Demo from './components/demo.vue'
+import Demos from './components/demos.vue'
 
 const NotFound = Theme.NotFound || (() => '404 Not Found')
 
@@ -63,6 +65,8 @@ export function createApp() {
   // install global components
   app.component('Content', Content)
   app.component('ClientOnly', ClientOnly)
+  app.component('Demo', Demo)
+  app.component('Demos', Demos)
   app.component(
     'Debug',
     import.meta.env.PROD

@@ -23,11 +23,7 @@ export function pathToFile(path: string): string {
   let pagePath = path.replace(/\.html$/, '')
   pagePath = decodeURIComponent(pagePath)
   if (pagePath.endsWith('/')) {
-    if (pagePath.endsWith('en-US/')) {
-      pagePath = pagePath.replace('en-US/', '') + 'index.en-US'
-    } else {
-      pagePath += 'index'
-    }
+    pagePath += 'index'
   }
 
   if (import.meta.env.DEV) {

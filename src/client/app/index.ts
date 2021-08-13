@@ -16,8 +16,8 @@ import { usePrefetch } from './composables/preFetch'
 import { dataSymbol, initData } from './data'
 import { Content } from './components/Content'
 import { ClientOnly } from './components/ClientOnly'
-import Demo from './components/demo.vue'
-import Demos from './components/demos.vue'
+import Demo from './components/Demo.vue'
+import Demos from './components/Demos.vue'
 
 const NotFound = Theme.NotFound || (() => '404 Not Found')
 

@@ -1,7 +1,9 @@
 import MarkdownIt from 'markdown-it'
+import { root } from '../../cli'
 import { MarkdownParsedData } from '../markdown'
 import { highlight } from './highlight'
 import fs from 'fs'
+import { resolve } from 'path'
 import klawSync from 'klaw-sync'
 
 const anchor = '&-&'
@@ -24,11 +26,15 @@ export function demoPlugin(md: MarkdownIt, resolver: any) {
         const demoPath = getDemoTruePath(content.trim())
         if (!demoPath) return content
         const { demoCodeStrs, demoCodeRaws } = demoFileHtmlStr(demoPath)
-        const name = 'comp' + (Math.random() * 100).toFixed(0)
+        const name = 'comp' + (Math.random() * 10000).toFixed(0)
+        const truePath =
+          demoPath.startsWith('./') || demoPath.startsWith('../')
+            ? resolve(root, demoPath)
+            : resolve(process.cwd(), demoPath)
         const item = `
           <script>
           import { markRaw } from 'vue'
-          import demo from '${demoPath}'
+          import demo from '${truePath}'
           export default {
             data() {
               return { ${name}: markRaw(demo) }
@@ -92,9 +98,18 @@ export function demoPlugin(md: MarkdownIt, resolver: any) {
 
       return { demoCodeStrs, demoCodeRaws }
     } else {
+      const truePath =
+        path.startsWith('./') || path.startsWith('../')
+          ? resolve(root, path)
+          : resolve(process.cwd(), path)
+      const content = fs.readFileSync(truePath, 'utf-8')
+      const htmlStr = encodeURIComponent(highlight(content, 'vue')).replace(
+        /\'/g,
+        '&'
+      )
       return {
-        demoCodeStrs: '',
-        demoCodeRaws: ''
+        demoCodeStrs: htmlStr,
+        demoCodeRaws: encodeURIComponent(content).replace(/\'/g, '&')
       }
     }
   }

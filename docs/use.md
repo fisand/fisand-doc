@@ -14,4 +14,6 @@ yarn add fisand-doc
 fisandoc
 ```
 
-<demo src="./test.vue" />
+## 引入demo
+
+<demo src="docs/test.vue" />

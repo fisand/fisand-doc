@@ -1,16 +1,39 @@
 <script setup lang="ts">
-import {} from 'vue'
-// import { useClipboard } from '@vueuse/core'
+import { shallowReactive } from 'vue'
+import { useClipboard } from '@vueuse/core'
 // import { useData } from 'vitepress'
 
 const props = defineProps({
   demo: { type: Object, default: {} },
-  htmlStrs: { type: String },
-  codeStrs: { type: String },
+  htmlStrs: { type: String, default: '' },
+  codeStrs: { type: String, default: ''  },
   src: { type: String },
 })
 
-const anchor = '&-&'
+const demoInfo = shallowReactive({
+  title: '',
+  describe: '',
+  ...props.demo,
+  showCodeExample: false,
+  copied: false,
+})
+
+const demoHTML = decodeURIComponent(props.htmlStrs.replace(/\&/g, "'"))
+
+const copyHandler = () => {
+  const { copy, isSupported } = useClipboard({
+    source: decodeURIComponent(props.codeStrs.replace(/\&/g, "'")),
+  })
+
+  isSupported && copy()
+
+  if (demoInfo.copied) return
+
+  demoInfo.copied = true
+  globalThis.setTimeout(() => {
+    demoInfo.copied = false
+  }, 1200)
+}
 </script>
 
 <template>
@@ -19,12 +42,12 @@ const anchor = '&-&'
       <!-- title -->
       <div
         class="text-sm py-2 px-2 <sm:text-md border-bottom border-gray-200"
-        v-text="demo.title || '基础'"
+        v-text="demoInfo.title || '基础'"
       ></div>
       <div
-        v-if="demo.describe"
+        v-if="demoInfo.describe"
         class="text-xs my-1 <sm:text-xs <sm:my-1"
-        v-text="demo.describe"
+        v-text="demoInfo.describe"
       ></div>
       <!-- demo -->
       <div class="demo-component p-4px">
@@ -32,24 +55,25 @@ const anchor = '&-&'
       </div>
       <!-- operation -->
       <div
-        class="relative py-2 px-2 text-center border-gray-200 border-top-dotted"
+        class="relative flex justify-center py-2 px-2 text-center border-gray-200 border-top-dotted"
       >
         <fluent:clipboard-code-24-regular
           class="text-md cursor-pointer <sm:text-sm"
+          @click="copyHandler"
         />
         <ant-design:code-outlined
           class="text-md cursor-pointer ml-12 <sm:text-sm"
           :class="[
-            demo.showCodeExample ? 'active-code' : '',
+            demoInfo.showCodeExample ? 'active-code' : '',
           ]"
           @click="
-            demo.showCodeExample = !demo.showCodeExample
+            demoInfo.showCodeExample = !demoInfo.showCodeExample
           "
         />
 
         <transition name="fade">
           <span
-            v-show="demo.copied"
+            v-show="demoInfo.copied"
             class="block absolute left-1/2 top-0 text-xs text-blue-500 bg-blue-gray-50 rounded-md shadow-sm"
             style="
               padding: 4px 10px;
@@ -60,13 +84,18 @@ const anchor = '&-&'
           >
         </transition>
       </div>
+      <div
+        v-if="demoInfo.showCodeExample"
+        class="example-code language-vue"
+        v-html="demoHTML"
+      ></div>
     </div>
   </ClientOnly>
 </template>
 
 <style>
 .border-bottom {
-  border-bottom: 1px solid rgba(229, 231, 235, 1);
+  border-bottom: 1px dotted rgba(229, 231, 235, 1);
 }
 
 .border-top-dotted {
@@ -75,6 +104,11 @@ const anchor = '&-&'
 
 .active-code {
   color: var(--c-brand);
+}
+
+.example-code {
+  margin: 0 auto !important;
+  width: 100%;
 }
 
 .fade-enter-from,

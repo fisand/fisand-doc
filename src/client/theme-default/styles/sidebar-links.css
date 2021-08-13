@@ -54,12 +54,10 @@ a.sidebar-link-item.active {
   font-size: 1.1rem;
   font-weight: 700;
 }
-
 .sidebar > .sidebar-links > .sidebar-link > a.sidebar-link-item.active {
   border-left-color: var(--c-brand);
   font-weight: 600;
 }
-
 .sidebar
   > .sidebar-links
   > .sidebar-link
@@ -72,7 +70,6 @@ a.sidebar-link-item.active {
   font-size: 1rem;
   font-weight: 400;
 }
-
 .sidebar
   > .sidebar-links
   > .sidebar-link
@@ -82,7 +79,6 @@ a.sidebar-link-item.active {
   border-left-color: var(--c-brand);
   font-weight: 600;
 }
-
 .sidebar
   > .sidebar-links
   > .sidebar-link
@@ -97,7 +93,6 @@ a.sidebar-link-item.active {
   font-size: 0.9rem;
   font-weight: 400;
 }
-
 .sidebar
   > .sidebar-links
   > .sidebar-link
@@ -171,7 +166,7 @@ a.sidebar-link-item.active {
   > a.sidebar-link-item.active {
   /* border-left-color: var(--c-brand); */
   font-weight: 400;
-  background: none;
+  /* background: none; todo add it config */
 }
 
 .sidebar
@@ -182,7 +177,7 @@ a.sidebar-link-item.active {
   > a.sidebar-link-item:hover {
   /* border-left-color: var(--c-brand); */
   font-weight: 400;
-  background: none;
+  /* background: none; todo add it config */
 }
 
 .sidebar

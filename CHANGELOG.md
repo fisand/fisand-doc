@@ -1,3 +1,26 @@
+## [0.0.1](https://github.com/vuejs/vitepress/compare/v0.15.5...v0.0.1) (2021-08-14)
+
+### Bug Fixes
+
+- automatically escape vite user defined variables in markdown ([3cec536](https://github.com/vuejs/vitepress/commit/3cec536c1f3d5d027ee16cd0629f84461e565096))
+- fix import wrong name ([983a478](https://github.com/vuejs/vitepress/commit/983a4789c62eafbcac8ae3d3b809001b77dc5f60))
+- fix slugs in bundle ([f2d8b77](https://github.com/vuejs/vitepress/commit/f2d8b7779a7d0f05bc3490b62629666a8c47530b))
+- override target and rel links attribute in config ([#332](https://github.com/vuejs/vitepress/issues/332)) ([9d98dbb](https://github.com/vuejs/vitepress/commit/9d98dbbe60d477a78d6dc0e80d16fdddedcd4ed5))
+- windicss includes ([cc16fb2](https://github.com/vuejs/vitepress/commit/cc16fb262d981fb93672aa0534289367432969c1))
+- **edit-link:** let frontmatter overwrite global editLink ([#340](https://github.com/vuejs/vitepress/issues/340)) ([cfbba80](https://github.com/vuejs/vitepress/commit/cfbba80a0a6e33bcb2ca3d4450fb9624dcd6d140))
+- skip external URLs in `withBase` ([#328](https://github.com/vuejs/vitepress/issues/328)) ([53bb961](https://github.com/vuejs/vitepress/commit/53bb961a925cbafe53730450c5b069e255b54e03))
+
+### Features
+
+- add demo plugin ([4a8b260](https://github.com/vuejs/vitepress/commit/4a8b260ccf4fe7f5f03146d87cec7c72feac89b4))
+- custom theme-default ([4b6b65f](https://github.com/vuejs/vitepress/commit/4b6b65f48cae85d204a6e88b9fad2c6a8c4c00b6))
+- improve effect ([d6dd28d](https://github.com/vuejs/vitepress/commit/d6dd28d808c76a6f6edd00ca6edcd7b024670eb4))
+- info custom container ([4925fb5](https://github.com/vuejs/vitepress/commit/4925fb5c29c59b7e17d050ab4346f71afc0463cd))
+- support flat route ([3e6a258](https://github.com/vuejs/vitepress/commit/3e6a25821fffac9471d721d328de770f78f4e49e))
+- support single demo ([11f3d20](https://github.com/vuejs/vitepress/commit/11f3d2010f737c3bdad7a249cd6497f6c0bbbf29))
+- update build ([bfbecc2](https://github.com/vuejs/vitepress/commit/bfbecc232bc10634561ca490aeb0ee7cb3c5a06c))
+- update theme default ([d9f3fbc](https://github.com/vuejs/vitepress/commit/d9f3fbcd227bd9326dea5937e9dea1a8b31cd55a))
+
 ## [0.16.1](https://github.com/vuejs/vitepress/compare/v0.16.0...v0.16.1) (2021-08-11)
 
 ### Features

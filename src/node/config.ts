@@ -59,8 +59,13 @@ export interface SiteConfig<ThemeConfig = any> {
   vite: ViteConfig | undefined
 }
 
-const resolve = (root: string, file: string) =>
-  path.resolve(root, `.vitepress`, file)
+const resolve = (root: string, file: string) => {
+  if (fs.existsSync(path.resolve(root, `.fisandoc`))) {
+    return path.resolve(root, `.fisandoc`, file)
+  } else {
+    return path.resolve(root, `.vitepress`, file)
+  }
+}
 
 export async function resolveConfig(
   root: string = process.cwd()

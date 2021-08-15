@@ -1,3 +1,9 @@
+## [0.0.2](https://github.com/vuejs/vitepress/compare/v0.0.1...v0.0.2) (2021-08-15)
+
+### Features
+
+- update demos ([7263ac0](https://github.com/vuejs/vitepress/commit/7263ac08b6413c75ac5f0878d86babcfd629e389))
+
 ## [0.0.1](https://github.com/vuejs/vitepress/compare/v0.15.5...v0.0.1) (2021-08-14)
 
 ### Bug Fixes

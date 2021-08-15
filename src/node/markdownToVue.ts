@@ -102,36 +102,41 @@ export function createMarkdownToVueRenderFn(
     }
 
     // handler fisand demo
-    const demoSrc = data.fisand_compnent
-      .map(
-        (comp: { name: string; path: string }) =>
-          `import ${comp.name} from '${comp.path}'`
-      )
-      .join('\n')
+    let demoSrc = ''
+    if (data.fisand_compnent) {
+      demoSrc = data.fisand_compnent
+        .map(
+          (comp: { name: string; path: string }) =>
+            `import ${comp.name} from '${comp.path}'`
+        )
+        .join('\n')
+    }
 
-    const existingScriptIndex = data.hoistedTags.findIndex((tag: string) => {
-      return scriptSetupRE.test(tag)
-    })
+    if (data.hoistedTags && demoSrc) {
+      const existingScriptIndex = data.hoistedTags.findIndex((tag: string) => {
+        return scriptSetupRE.test(tag)
+      })
 
-    if (existingScriptIndex > -1) {
-      const tagSrc = data.hoistedTags[existingScriptIndex]
-      data.hoistedTags.splice(
-        existingScriptIndex,
-        1,
-        tagSrc.replace(
-          '</script>',
+      if (existingScriptIndex > -1) {
+        const tagSrc = data.hoistedTags[existingScriptIndex]
+        data.hoistedTags.splice(
+          existingScriptIndex,
+          1,
+          tagSrc.replace(
+            '</script>',
+            `
+            ${demoSrc}
+            </script>
           `
+          )
+        )
+      } else {
+        data.hoistedTags.unshift(`
+          <script setup>
           ${demoSrc}
           </script>
-        `
-        )
-      )
-    } else {
-      data.hoistedTags.unshift(`
-        <script setup>
-        ${demoSrc}
-        </script>
-      `)
+        `)
+      }
     }
 
     const vueSrc =

@@ -101,6 +101,39 @@ export function createMarkdownToVueRenderFn(
       lastUpdated: Math.round(fs.statSync(file).mtimeMs)
     }
 
+    // handler fisand demo
+    const demoSrc = data.fisand_compnent
+      .map(
+        (comp: { name: string; path: string }) =>
+          `import ${comp.name} from '${comp.path}'`
+      )
+      .join('\n')
+
+    const existingScriptIndex = data.hoistedTags.findIndex((tag: string) => {
+      return scriptSetupRE.test(tag)
+    })
+
+    if (existingScriptIndex > -1) {
+      const tagSrc = data.hoistedTags[existingScriptIndex]
+      data.hoistedTags.splice(
+        existingScriptIndex,
+        1,
+        tagSrc.replace(
+          '</script>',
+          `
+          ${demoSrc}
+          </script>
+        `
+        )
+      )
+    } else {
+      data.hoistedTags.unshift(`
+        <script setup>
+        ${demoSrc}
+        </script>
+      `)
+    }
+
     const vueSrc =
       genPageDataCode(data.hoistedTags || [], pageData).join('\n') +
       `\n<template><div>${html}</div></template>`

@@ -35,6 +35,10 @@ export interface MarkdownParsedData {
   hoistedTags?: string[]
   links?: string[]
   headers?: Header[]
+  fisand_compnent?: Array<{
+    name: string
+    path: string
+  }>
 }
 
 export interface MarkdownRenderer {

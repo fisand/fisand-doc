@@ -11,18 +11,20 @@ const anchor = '&-&'
 export function demoPlugin(md: MarkdownIt, resolver: any) {
   const RE = /^<(script|style)(?=(\s|>|$))/i
   const DEMO_RE = /^<demo\s+.+\s?\/?>?/
+  const DEMOS_RE = /^<demos\s+.+\s?\/?>?/
   const DEMO_PATH_RE = /src=("|').*("|')/
 
   md.renderer.rules.html_block = (tokens: any, idx: any) => {
     const content = tokens[idx].content
     const data = (md as any).__data as MarkdownParsedData
     const hoistedTags = data.hoistedTags || (data.hoistedTags = [])
-
+    const fisand_components =
+      data.fisand_compnent || (data.fisand_compnent = [])
     if (RE.test(content.trim())) {
       hoistedTags.push(content)
       return ''
     } else {
-      if (DEMO_RE.test(content.trim())) {
+      if (DEMO_RE.test(content.trim()) || DEMOS_RE.test(content.trim())) {
         const demoPath = getDemoTruePath(content.trim())
         if (!demoPath) return content
         const { demoCodeStrs, demoCodeRaws } = demoFileHtmlStr(demoPath)
@@ -31,24 +33,15 @@ export function demoPlugin(md: MarkdownIt, resolver: any) {
           demoPath.startsWith('./') || demoPath.startsWith('../')
             ? resolve(root, demoPath)
             : resolve(process.cwd(), demoPath)
-        const item = `
-          <script>
-          import { markRaw } from 'vue'
-          import demo from '${truePath}'
-          export default {
-            data() {
-              return { ${name}: markRaw(demo) }
-            }
-          }
-          </script>
-          `
-        if (!hoistedTags.includes(item)) {
-          hoistedTags.push(item)
-        }
+
+        fisand_components.push({
+          name,
+          path: truePath
+        })
 
         return content.replace(
-          '<demo',
-          `<demo
+          DEMO_RE.test(content.trim()) ? '<demo' : '<demos',
+          `${DEMO_RE.test(content.trim()) ? '<demo' : '<demos'}
             htmlStrs="${
               Array.isArray(demoCodeStrs)
                 ? demoCodeStrs.join(anchor)
@@ -79,7 +72,7 @@ export function demoPlugin(md: MarkdownIt, resolver: any) {
         nodir: true,
         depthLimit: 0
       })
-        .filter((p) => !p.path.endsWith('index.vue'))
+        .filter((p) => p.path.endsWith('.vue'))
         .map((p) => p.path)
 
       const demoCodeStrs = demoEntries.map((p: string) => {

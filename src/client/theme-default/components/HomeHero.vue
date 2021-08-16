@@ -25,7 +25,7 @@ const inner = ref<HTMLElement>()
 // handler svg banner
 onMounted(() => {
   mouseFollow(container.value, inner.value)
-  if (frontmatter.value.heroBanner) {
+  if (frontmatter.value.heroBanner && frontmatter.value.heroBanner.endsWith('.svg')) {
     fetch(frontmatter.value.heroBanner).then(res => res.text()).then((text) => {
       inner.value && (inner.value.innerHTML = text.replace('<svg', '<svg style="width: 100%"'))
     })

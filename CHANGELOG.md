@@ -1,3 +1,9 @@
+## [0.0.4](https://github.com/vuejs/vitepress/compare/v0.0.3...v0.0.4) (2021-08-16)
+
+### Features
+
+- support demo-wrapper ([b563a5c](https://github.com/vuejs/vitepress/commit/b563a5cc9babdc084a4572337b00f656beda0fb1))
+
 ## [0.0.3](https://github.com/vuejs/vitepress/compare/v0.0.2...v0.0.3) (2021-08-15)
 
 ### Bug Fixes

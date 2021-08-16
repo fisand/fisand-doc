@@ -28,7 +28,7 @@ fisandoc
 
 ### 批量引入
 
-> 执行路径即可，fisandoc 会自动引入该路径下所有 `.vue` 文件
+> 指定路径即可，**fisandoc** 会自动引入该路径下所有 `.vue` 文件
 
 ```vue
 <demo-wrapper src="docs" />

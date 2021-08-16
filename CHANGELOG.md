@@ -1,3 +1,9 @@
+## [0.0.5](https://github.com/vuejs/vitepress/compare/v0.0.4...v0.0.5) (2021-08-16)
+
+### Bug Fixes
+
+- fix export root in cli ([3854de7](https://github.com/vuejs/vitepress/commit/3854de7f7b910725126209c1b1b1f9af9f6aabf5))
+
 ## [0.0.4](https://github.com/vuejs/vitepress/compare/v0.0.3...v0.0.4) (2021-08-16)
 
 ### Features

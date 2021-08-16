@@ -1,3 +1,9 @@
+## [0.0.6](https://github.com/vuejs/vitepress/compare/v0.0.5...v0.0.6) (2021-08-16)
+
+### Bug Fixes
+
+- fix banner logic ([7ffede9](https://github.com/vuejs/vitepress/commit/7ffede92188d3d1bcbf3d87698f69b0a6f41cd97))
+
 ## [0.0.5](https://github.com/vuejs/vitepress/compare/v0.0.4...v0.0.5) (2021-08-16)
 
 ### Bug Fixes

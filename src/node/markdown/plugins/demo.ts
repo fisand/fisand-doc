@@ -1,11 +1,14 @@
 import MarkdownIt from 'markdown-it'
-import { root } from '../../cli'
+import minimist from 'minimist'
 import { MarkdownParsedData } from '../markdown'
 import { highlight } from './highlight'
 import fs from 'fs'
 import { resolve } from 'path'
 import klawSync from 'klaw-sync'
 
+const argv: any = minimist(process.argv.slice(2))
+const command = argv._[0]
+const root = argv._[command ? 1 : 0]
 const anchor = '&-&'
 
 export function demoPlugin(md: MarkdownIt, resolver: any) {

@@ -8,7 +8,7 @@ console.log(chalk.cyan(`fisandoc v${require('../../package.json').version}`))
 console.log(chalk.cyan(`vite v${require('vite/package.json').version}`))
 
 const command = argv._[0]
-export const root = argv._[command ? 1 : 0]
+const root = argv._[command ? 1 : 0]
 if (root) {
   argv.root = root
 }

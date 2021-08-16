@@ -5,7 +5,7 @@
 ### 使用 npm
 
 ```bash
-yarn add fisand-doc
+yarn add fisand-doc -D
 ```
 
 ## 使用

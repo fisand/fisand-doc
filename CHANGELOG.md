@@ -1,3 +1,9 @@
+## [0.0.7](https://github.com/vuejs/vitepress/compare/v0.0.6...v0.0.7) (2021-08-16)
+
+### Features
+
+- add classname for demo & demo-wrapper ([3e618ad](https://github.com/vuejs/vitepress/commit/3e618adc0ba3161ccfe806a7d2f7931bf7916388))
+
 ## [0.0.6](https://github.com/vuejs/vitepress/compare/v0.0.5...v0.0.6) (2021-08-16)
 
 ### Bug Fixes

@@ -105,10 +105,12 @@ export function createMarkdownToVueRenderFn(
     let demoSrc = ''
     if (data.fisand_compnent) {
       demoSrc = data.fisand_compnent
-        .map(
-          (comp: { name: string; path: string }) =>
-            `import ${comp.name} from '${comp.path}'`
-        )
+        .map((comp: { name: string; path: string; glob?: boolean }) => {
+          const globRelativePath = path.relative(path.dirname(file), comp.path)
+          return comp.glob
+            ? `const demos = import.meta.globEager('${globRelativePath}/*.vue')`
+            : `import ${comp.name} from '${comp.path}'`
+        })
         .join('\n')
     }
 
@@ -125,16 +127,16 @@ export function createMarkdownToVueRenderFn(
           tagSrc.replace(
             '</script>',
             `
-            ${demoSrc}
-            </script>
-          `
+${demoSrc}
+</script>
+            `
           )
         )
       } else {
         data.hoistedTags.unshift(`
-          <script setup>
-          ${demoSrc}
-          </script>
+<script setup>
+${demoSrc}
+</script>
         `)
       }
     }

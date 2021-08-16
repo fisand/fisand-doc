@@ -66,7 +66,7 @@ export function createApp() {
   app.component('Content', Content)
   app.component('ClientOnly', ClientOnly)
   app.component('Demo', Demo)
-  app.component('Demos', Demos)
+  app.component('DemoWrapper', Demos)
   app.component(
     'Debug',
     import.meta.env.PROD

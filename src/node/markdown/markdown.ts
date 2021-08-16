@@ -38,6 +38,7 @@ export interface MarkdownParsedData {
   fisand_compnent?: Array<{
     name: string
     path: string
+    glob?: boolean
   }>
 }
 

@@ -22,6 +22,7 @@ const heroText = computed(() => frontmatter.value.heroText || site.value.title)
 const container = ref<HTMLElement>()
 const inner = ref<HTMLElement>()
 
+// handler svg banner
 onMounted(() => {
   mouseFollow(container.value, inner.value)
   if (frontmatter.value.heroBanner) {

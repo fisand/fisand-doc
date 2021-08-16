@@ -16,12 +16,22 @@ fisandoc
 
 ## 引入demo
 
-指定 `src` 即可
+### 引入单文件组件
 
-> 最好使用绝对路径，以免无法正确引入组件
+> 指定 `src` 即可，最好使用绝对路径，以免无法正确引入组件
 
 ```vue
 <demo src="docs/test.vue" />
 ```
 
 <demo src="docs/test.vue" />
+
+### 批量引入
+
+> 执行路径即可，fisandoc 会自动引入该路径下所有 `.vue` 文件
+
+```vue
+<demo-wrapper src="docs" />
+```
+
+<demo-wrapper src="docs" />

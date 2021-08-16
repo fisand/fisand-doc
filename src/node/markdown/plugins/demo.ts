@@ -11,7 +11,7 @@ const anchor = '&-&'
 export function demoPlugin(md: MarkdownIt, resolver: any) {
   const RE = /^<(script|style)(?=(\s|>|$))/i
   const DEMO_RE = /^<demo\s+.+\s?\/?>?/
-  const DEMOS_RE = /^<demos\s+.+\s?\/?>?/
+  const DEMOS_RE = /^<demo-wrapper\s+.+\s?\/?>?/
   const DEMO_PATH_RE = /src=("|').*("|')/
 
   md.renderer.rules.html_block = (tokens: any, idx: any) => {
@@ -27,21 +27,20 @@ export function demoPlugin(md: MarkdownIt, resolver: any) {
       if (DEMO_RE.test(content.trim()) || DEMOS_RE.test(content.trim())) {
         const demoPath = getDemoTruePath(content.trim())
         if (!demoPath) return content
-        const { demoCodeStrs, demoCodeRaws } = demoFileHtmlStr(demoPath)
+
+        const { demoCodeStrs, demoCodeRaws, truePath } =
+          demoFileHtmlStr(demoPath)
         const name = 'comp' + (Math.random() * 10000).toFixed(0)
-        const truePath =
-          demoPath.startsWith('./') || demoPath.startsWith('../')
-            ? resolve(root, demoPath)
-            : resolve(process.cwd(), demoPath)
 
         fisand_components.push({
           name,
-          path: truePath
+          path: truePath,
+          glob: !truePath.endsWith('.vue')
         })
 
         return content.replace(
-          DEMO_RE.test(content.trim()) ? '<demo' : '<demos',
-          `${DEMO_RE.test(content.trim()) ? '<demo' : '<demos'}
+          DEMO_RE.test(content.trim()) ? '<demo' : '<demo-wrapper',
+          `${DEMO_RE.test(content.trim()) ? '<demo' : '<demo-wrapper'}
             htmlStrs="${
               Array.isArray(demoCodeStrs)
                 ? demoCodeStrs.join(anchor)
@@ -52,7 +51,11 @@ export function demoPlugin(md: MarkdownIt, resolver: any) {
                 ? demoCodeRaws.join(anchor)
                 : demoCodeRaws
             }"
-            :demo="${name}"
+            ${
+              DEMO_RE.test(content.trim())
+                ? `:demo="${name}"`
+                : ':demos="demos"'
+            }
           `
         )
       }
@@ -67,7 +70,12 @@ export function demoPlugin(md: MarkdownIt, resolver: any) {
   }
 
   function demoFileHtmlStr(path: string) {
-    if (!path.endsWith('.vue')) {
+    const truePath =
+      path.startsWith('./') || path.startsWith('../')
+        ? resolve(root, path)
+        : resolve(process.cwd(), path)
+
+    if (!truePath.endsWith('.vue')) {
       const demoEntries = klawSync(path, {
         nodir: true,
         depthLimit: 0
@@ -89,12 +97,8 @@ export function demoPlugin(md: MarkdownIt, resolver: any) {
         )
       })
 
-      return { demoCodeStrs, demoCodeRaws }
+      return { demoCodeStrs, demoCodeRaws, truePath }
     } else {
-      const truePath =
-        path.startsWith('./') || path.startsWith('../')
-          ? resolve(root, path)
-          : resolve(process.cwd(), path)
       const content = fs.readFileSync(truePath, 'utf-8')
       const htmlStr = encodeURIComponent(highlight(content, 'vue')).replace(
         /\'/g,
@@ -102,7 +106,8 @@ export function demoPlugin(md: MarkdownIt, resolver: any) {
       )
       return {
         demoCodeStrs: htmlStr,
-        demoCodeRaws: encodeURIComponent(content).replace(/\'/g, '&')
+        demoCodeRaws: encodeURIComponent(content).replace(/\'/g, '&'),
+        truePath
       }
     }
   }

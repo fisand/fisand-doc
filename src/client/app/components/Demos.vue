@@ -22,13 +22,14 @@ const decodeCodeRaws = computed(() => [
 </script>
 
 <template>
-  <component
-    v-for="(item, index) in comps"
-    :demo="item"
-    :key="index"
-    :html-strs="decodedHtmlStrs[index]"
-    :code-strs="decodeCodeRaws[index]"
-    :is="demo"
-  >
-  </component>
+  <div class="fisand-demo-container">
+    <component
+      v-for="(item, index) in comps"
+      :demo="item"
+      :key="index"
+      :html-strs="decodedHtmlStrs[index]"
+      :code-strs="decodeCodeRaws[index]"
+      :is="demo"
+    />
+  </div>
 </template>

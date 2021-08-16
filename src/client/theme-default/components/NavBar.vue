@@ -66,7 +66,9 @@ const shadowStyle = computed(() => {
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid transparent;
-  padding: 0.7rem 1.5rem 0.7rem 4rem;
+  padding-top: 0.7rem;
+  padding-right: 1.5rem;
+  padding-bottom: 0.7rem;
   height: var(--header-height);
   background-color: var(--c-bg);
 }

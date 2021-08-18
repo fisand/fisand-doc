@@ -49,7 +49,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vuejs/vitepress.git"
+    "url": "git+https://github.com/zouhangwithsweet/fisand-doc"
   },
   "keywords": [
     "vite",
@@ -58,9 +58,9 @@
   ],
   "author": "Evan You",
   "license": "MIT",
-  "homepage": "https://github.com/vuejs/vitepress/tree/master/#readme",
+  "homepage": "https://github.com/zouhangwithsweet/fisand-doc/tree/master/#readme",
   "bugs": {
-    "url": "https://github.com/vuejs/vitepress/issues"
+    "url": "https://github.com/zouhangwithsweet/fisand-doc/issues"
   },
   "dependencies": {
     "@docsearch/css": "^1.0.0-alpha.28",

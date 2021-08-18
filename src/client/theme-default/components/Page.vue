@@ -12,6 +12,10 @@ import NextAndPrevLinks from './NextAndPrevLinks.vue'
       <PageFooter />
       <NextAndPrevLinks />
 
+      <ClientOnly>
+        <Slugs />
+      </ClientOnly>
+
       <slot name="bottom" />
     </div>
   </main>

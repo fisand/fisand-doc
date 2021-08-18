@@ -18,6 +18,8 @@ defineProps({
 const repo = useRepo()
 const isGithub = () =>
   repo.value?.text.toLowerCase() === 'github'
+const isGitlab = () =>
+  repo.value?.text.toLowerCase() === 'gitlab'
 
 const { y } = useWindowScroll()
 const shadowStyle = computed(() => {
@@ -44,9 +46,12 @@ const shadowStyle = computed(() => {
     <div class="nav">
       <NavLinks />
     </div>
+    <div v-if="repo && !isGithub() && !isGitlab()" class="item">
+      <NavLink :item="repo" />
+    </div>
 
     <div class="nav-icons flex items-center gap-2">
-      <GithubLink v-if="repo && isGithub()" :item="repo" />
+      <GithubLink v-if="repo && (isGithub() || isGitlab())" :item="repo" />
       <DarkSwitch />
       <LangSwitch />
     </div>

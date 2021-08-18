@@ -1,5 +1,4 @@
 .custom-block.tip,
-.custom-block.info,
 .custom-block.warning,
 .custom-block.danger {
   margin: 1rem 0;
@@ -11,11 +10,6 @@
 .custom-block.tip {
   background-color: #f3f5f7;
   border-color: var(--c-brand);
-}
-
-.custom-block.info {
-  background-color: #f3f5f7;
-  border-color: var(--c-text-light-2);
 }
 
 .custom-block.warning {
@@ -73,4 +67,8 @@
 .custom-block-title {
   margin-bottom: -0.4rem;
   font-weight: 600;
+}
+
+.dark .custom-block.tip {
+  background-color: var(--c-bg);
 }

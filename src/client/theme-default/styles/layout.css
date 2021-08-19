@@ -307,10 +307,6 @@ li > svg {
   }
 }
 
-.page .fisand-demo-container .fisand-demo:last-child {
-  display: none;
-}
-
 .fisand-demo .demo-component {
   margin: 32px auto;
   padding: 4px;

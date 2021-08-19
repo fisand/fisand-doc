@@ -24,7 +24,11 @@ fisandoc
 <demo src="docs/test.vue" />
 ```
 
-<demo src="docs/test.vue" />
+<demo src="docs/test.vue">
+```vue
+const a = 'a'
+```
+</demo>
 
 ### 批量引入
 

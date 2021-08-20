@@ -55,13 +55,9 @@ const copyHandler = () => {
       </div>
       <!-- operation -->
       <div
-        class="relative flex justify-center py-2 px-2 text-center border-gray-200 border-top-dotted"
+        class="relative flex justify-end py-2 px-2 text-center border-gray-200 border-top-dotted"
       >
-        <fluent:clipboard-code-24-regular
-          class="text-md cursor-pointer <sm:text-sm"
-          @click="copyHandler"
-        />
-        <ant-design:code-outlined
+        <ph:code
           class="text-md cursor-pointer ml-12 <sm:text-sm"
           :class="[
             demoInfo.showCodeExample ? 'active-code' : '',
@@ -71,24 +67,29 @@ const copyHandler = () => {
           "
         />
 
+      </div>
+      <div
+        v-if="demoInfo.showCodeExample"
+        class="example-code language-vue relative"
+      >
+        <ph:copy-thin
+          class="absolute top-2 right-2 z-10 text-cool-gray-400 text-md cursor-pointer <sm:text-sm"
+          @click="copyHandler"
+        />
         <transition name="fade">
           <span
             v-show="demoInfo.copied"
-            class="block absolute left-1/2 top-0 text-xs text-blue-500 bg-blue-gray-50 rounded-md shadow-sm"
+            class="block absolute left-1/2 top-1.5rem text-xs text-blue-500 bg-blue-gray-50 rounded-md shadow-sm"
             style="
               padding: 4px 10px;
-              z-index: 999;
-              transform: translate(-96%, -80%);
+              z-index: 9999;
+              transform: translate(-50%, -80%);
             "
             >复制成功!</span
           >
         </transition>
+        <div v-html="demoHTML" />
       </div>
-      <div
-        v-if="demoInfo.showCodeExample"
-        class="example-code language-vue"
-        v-html="demoHTML"
-      ></div>
     </div>
   </ClientOnly>
 </template>

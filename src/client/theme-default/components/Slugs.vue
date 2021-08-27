@@ -1,17 +1,37 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRoute } from 'vitepress'
+import { useClipboard } from '@vueuse/core'
+import { Toast } from '../composables/create'
 
 const route = useRoute()
 const headers = computed(() => {
   const headers = route.data.headers || []
   return headers.filter(i => i.level <= 3)
 })
+
+const copyLink = () => {
+  const { copy, isSupported } = useClipboard({
+    source: decodeURIComponent(window?.location.href),
+  })
+
+  isSupported && copy()
+  Toast.create({
+    message: 'Link Copied',
+  })
+
+  setTimeout(() => {
+    Toast.hide()
+  }, 1500)
+}
 </script>
 
 <template>
   <teleport to="body">
     <ul class="right-slug">
+      <p class="operation">
+        <ph:share class="share inline-block relative cursor-pointer" @click="copyLink" />
+      </p>
       <li
         v-for="{ level, title, slug } of headers"
         :class="`slug-item level-${level}`"
@@ -65,9 +85,18 @@ const headers = computed(() => {
   transform: translateX(0);
   transition: transform 0.25s ease;
 }
+
 @media (max-width: 1280px) {
   .right-slug {
     transform: translateX(100%);
   }
+}
+
+.operation {
+  padding-left: 28px;
+  border-left: 2px solid #ebedf1;
+}
+.share {
+  color: rgba(60, 60, 67, .5)
 }
 </style>

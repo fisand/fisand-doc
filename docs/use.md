@@ -25,9 +25,6 @@ fisandoc
 ```
 
 <demo src="docs/test.vue">
-```vue
-const a = 'a'
-```
 </demo>
 
 ### 批量引入
@@ -40,7 +37,7 @@ const a = 'a'
 
 <demo-wrapper src="docs" />
 
-::: tip 结合 Vue2 使用
+::: info 结合 Vue2 使用
 `fisandoc` 基于 `vitepress`。默认的 `Vue` 版本为 `3.x`。当你的项目是 `Vue2.x`时，且使用 **composition-api** `demo` 中 `vue` 需要改为 [vue-demi](https://github.com/vueuse/vue-demi)。例如：
 
 ```ts

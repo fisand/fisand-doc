@@ -41,7 +41,7 @@ const copyHandler = () => {
     <div class="fisand-demo flex flex-col mb-8 rounded-lg border-1 border-gray-200 border-solid last:mb-0 divide-y">
       <!-- title -->
       <div
-        class="text-sm py-2 px-2 <sm:text-md border-bottom border-gray-200"
+        class="text-sm py-2 px-2 <sm:text-md border-bottom border-gray-200 select-none"
         v-text="demoInfo.title || '基础'"
       ></div>
       <div

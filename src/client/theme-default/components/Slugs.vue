@@ -16,12 +16,12 @@ const copyLink = () => {
   })
 
   isSupported && copy()
-  Toast.create({
+  const vm = Toast.create({
     message: 'Link Copied',
   })
 
   setTimeout(() => {
-    Toast.hide()
+    vm.hide()
   }, 1500)
 }
 </script>

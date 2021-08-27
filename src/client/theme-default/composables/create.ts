@@ -84,7 +84,7 @@ Toast.create = function ({ message = '' }) {
   if (ToastConstructor._instance) {
     ToastConstructor._instance.component.proxy.updateProps(options)
     ToastConstructor._instance.component.proxy.show?.()
-    return
+    return ToastConstructor._instance.component.proxy
   }
 
   const vm = (ToastConstructor._instance = createComponent(
@@ -97,7 +97,7 @@ Toast.create = function ({ message = '' }) {
   return vm?.component?.proxy
 }
 
-Toast.hide = (remove?: boolean) => {
+Toast.close = (remove?: boolean) => {
   if (remove) {
     close(ToastConstructor._instance?.component.props.id ?? '')
     ToastConstructor._instance = null

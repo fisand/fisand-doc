@@ -21,7 +21,7 @@ const copyLink = () => {
   })
 
   setTimeout(() => {
-    vm.hide()
+    vm?.hide()
   }, 1500)
 }
 </script>

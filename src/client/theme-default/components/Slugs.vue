@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useRoute } from 'vitepress'
 import { useClipboard } from '@vueuse/core'
-import { Toast } from '../composables/create'
+import { Toast } from '../composables/useToast'
 
 const route = useRoute()
 const headers = computed(() => {
@@ -16,13 +16,12 @@ const copyLink = () => {
   })
 
   isSupported && copy()
-  const vm = Toast.create({
+  Toast.create({
     message: 'Link Copied',
   })
 
   setTimeout(() => {
-    vm?.hide?.()
-    vm?._?.hide?.()
+    Toast.hide()
   }, 1500)
 }
 </script>

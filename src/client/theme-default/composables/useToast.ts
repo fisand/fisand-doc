@@ -36,11 +36,11 @@ export const createComponent = (
    */
   document.body.appendChild(container)
 
-  if (vm?.component?.proxy) {
+  if (vm?.component?.exposed) {
     /**
      * remove instnace
      */
-    ;(vm.component.proxy as any).remove = function (
+    ;(vm.component.exposed as any).remove = function (
       callback?: (args?: any) => void
     ) {
       render(null, container)
@@ -50,7 +50,7 @@ export const createComponent = (
     /**
      * update props
      */
-    ;(vm.component.proxy as any).updateProps = function (
+    ;(vm.component.exposed as any).updateProps = function (
       props: Record<string, any>
     ) {
       props &&
@@ -73,7 +73,7 @@ export function close(id: string) {
     return
   }
 
-  ;(instances[idx].component?.proxy as any).remove()
+  ;(instances[idx].component?.exposed as any).remove()
   instances.splice(idx, 1)
 }
 
@@ -82,9 +82,9 @@ export const Toast = Object.create(null)
 Toast.create = function ({ message = '' }) {
   const options = { message }
   if (ToastConstructor._instance) {
-    ToastConstructor._instance.component.proxy.updateProps(options)
-    ToastConstructor._instance.component.proxy.show?.()
-    return ToastConstructor._instance.component.proxy
+    ToastConstructor._instance.component.exposed.updateProps(options)
+    ToastConstructor._instance.component.exposed.show()
+    return ToastConstructor._instance.component.exposed
   }
 
   const vm = (ToastConstructor._instance = createComponent(
@@ -92,16 +92,16 @@ Toast.create = function ({ message = '' }) {
     options
   ))
 
-  ;(vm?.component?.proxy as any)?.show?.()
+  ;(vm?.component?.exposed as any)?.show?.()
 
-  return vm?.component?.proxy
+  return vm?.component?.exposed
 }
 
-Toast.close = (remove?: boolean) => {
+Toast.hide = (remove?: boolean) => {
   if (remove) {
     close(ToastConstructor._instance?.component.props.id ?? '')
     ToastConstructor._instance = null
   } else {
-    ToastConstructor._instance?.component.proxy.hide()
+    ToastConstructor._instance?.component.exposed.hide()
   }
 }

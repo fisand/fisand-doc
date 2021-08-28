@@ -5,7 +5,7 @@ defineProps({
   message: { type: String, default: ''  },
 })
 
-const showToast = ref(true)
+const showToast = ref(false)
 
 function show() {
   showToast.value = true

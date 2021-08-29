@@ -1,5 +1,7 @@
 import MarkdownIt from 'markdown-it'
 import minimist from 'minimist'
+import { transformSync } from 'esbuild'
+import stylus from 'stylus'
 import { parse, compileScript } from '@vue/compiler-sfc'
 import { MarkdownParsedData } from '../markdown'
 import { highlight } from './highlight'
@@ -145,17 +147,23 @@ function compileDemo(content: string) {
   const tpl = result.descriptor.template?.content ?? ''
   const script = result.descriptor.script?.content ?? ''
   const setup = result.descriptor.scriptSetup?.content ?? ''
-  const styles = result.descriptor.styles?.map((s: any) => s.content) ?? []
+  const styles =
+    result.descriptor.styles?.map((s) => {
+      if (s.lang === 'stylus') {
+        return stylus(s.content).render()
+      }
+      return s.content
+    }) ?? []
 
   const scriptResult = result.descriptor.script
     ? compileScript(
         parse(
           `
       <script>
-      ${script}
+      ${transformSync(script, { loader: 'ts' }).code}
       <\/script>
       <script setup>
-      ${setup}
+      ${transformSync(setup, { loader: 'ts' }).code}
       <\/script>
     `
         ).descriptor,

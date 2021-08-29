@@ -73,10 +73,16 @@ ${(decodeURIComponent(data.styles) || '').trim()}
     ? decodeURIComponent(data.script)
         .replace(/export default/, 'var Main =')
         .trim()
-        .replace(/import ({.*}) from \'vue\'/g, (s, s1) => `const ${s1} = Vue`)
         .replace(
-          /import ({.*}) from \'mand-mobile-next\\(.*)'/g,
-          (s, s1, s2) => `const ${s2} = MandMobile`
+          /import ({.*}) from \\?("|')vue\\?("|')/g,
+          (s, s1) => `const ${s1} = Vue`
+        )
+        .replace(
+          /import \w+ from \\?("|')mand-mobile-next\/(\w+)\\?("|')(;?)/g,
+          (s, s1, s2) =>
+            `const {${s2.replace(/\w/, (s: any) =>
+              s.toUpperCase()
+            )}} = MandMobile`
         )
     : 'var Main = {}'
   jsTpl += `

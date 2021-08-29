@@ -1,5 +1,6 @@
 import MarkdownIt from 'markdown-it'
 import minimist from 'minimist'
+import { parse, compileScript } from '@vue/compiler-sfc'
 import { MarkdownParsedData } from '../markdown'
 import { highlight } from './highlight'
 import fs from 'fs'
@@ -47,7 +48,8 @@ function replaceContent(
     const demoPath = getDemoTruePath(content.trim())
     if (!demoPath) return content
 
-    const { demoCodeStrs, demoCodeRaws, truePath } = demoFileHtmlStr(demoPath)
+    const { demoCodeStrs, demoCodeRaws, truePath, demoCDNRaws } =
+      demoFileHtmlStr(demoPath)
     const name = 'comp' + (Math.random() * 10000).toFixed(0)
 
     fisand_components!.push({
@@ -64,6 +66,21 @@ function replaceContent(
         }"
         codeStrs="${
           Array.isArray(demoCodeRaws) ? demoCodeRaws.join(anchor) : demoCodeRaws
+        }"
+        template="${
+          Array.isArray(demoCDNRaws)
+            ? demoCDNRaws.map((cdn) => cdn.template).join(anchor)
+            : demoCDNRaws?.template ?? ''
+        }"
+        script="${
+          Array.isArray(demoCDNRaws)
+            ? demoCDNRaws.map((cdn) => cdn.script).join(anchor)
+            : demoCDNRaws?.script ?? ''
+        }"
+        styles="${
+          Array.isArray(demoCDNRaws)
+            ? demoCDNRaws.map((cdn) => cdn.styles).join(anchor)
+            : demoCDNRaws?.styles ?? ''
         }"
         ${DEMO_RE.test(content.trim()) ? `:demo="${name}"` : ':demos="demos"'}
       `
@@ -102,7 +119,11 @@ function demoFileHtmlStr(path: string) {
       return encodeURIComponent(fs.readFileSync(p, 'utf-8')).replace(/\'/g, '&')
     })
 
-    return { demoCodeStrs, demoCodeRaws, truePath }
+    const demoCDNRaws = demoEntries.map((p: string) => {
+      return compileDemo(fs.readFileSync(p, 'utf-8'))
+    })
+
+    return { demoCodeStrs, demoCodeRaws, truePath, demoCDNRaws }
   } else {
     const content = fs.readFileSync(truePath, 'utf-8')
     const htmlStr = encodeURIComponent(highlight(content, 'vue')).replace(
@@ -112,7 +133,41 @@ function demoFileHtmlStr(path: string) {
     return {
       demoCodeStrs: htmlStr,
       demoCodeRaws: encodeURIComponent(content).replace(/\'/g, '&'),
+      demoCDNRaws: compileDemo(content),
       truePath
     }
+  }
+}
+
+function compileDemo(content: string) {
+  const result = parse(content)
+
+  const tpl = result.descriptor.template?.content ?? ''
+  const script = result.descriptor.script?.content ?? ''
+  const setup = result.descriptor.scriptSetup?.content ?? ''
+  const styles = result.descriptor.styles?.map((s: any) => s.content) ?? []
+
+  const scriptResult = result.descriptor.script
+    ? compileScript(
+        parse(
+          `
+      <script>
+      ${script}
+      <\/script>
+      <script setup>
+      ${setup}
+      <\/script>
+    `
+        ).descriptor,
+        {
+          id: Math.random().toString(36).substr(2, 9)
+        }
+      )
+    : { content: '' }
+
+  return {
+    template: encodeURIComponent(tpl),
+    script: encodeURIComponent(scriptResult.content),
+    styles: encodeURIComponent(styles.join(anchor))
   }
 }

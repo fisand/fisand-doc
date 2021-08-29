@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { shallowReactive } from 'vue'
 import { useClipboard } from '@vueuse/core'
+import { useData } from 'vitepress'
 import { submitCodepen } from '../utils'
+
+const data = useData()
+const codepen = data.theme.value.codepen
 
 const props = defineProps({
   demo: { type: Object, default: {} },
@@ -62,9 +66,11 @@ const copyHandler = () => {
       </div>
       <!-- operation -->
       <div
-        class="relative flex justify-between py-2 px-2 text-center border-gray-200 border-top-dotted"
+        class="relative flex py-2 px-2 text-center border-gray-200 border-top-dotted"
+        :class="codepen ? 'justify-between' : 'justify-end'"
       >
         <la:codepen 
+          v-show="codepen"
           class="text-md cursor-pointer <sm:text-sm"
           @click="codepenHandler"
         />

@@ -1,3 +1,14 @@
+## [0.0.13](https://github.com/zouhangwithsweet/fisand-doc/compare/v0.0.12...v0.0.13) (2021-08-29)
+
+### Bug Fixes
+
+- replace proxy with exposed for handler call ([d1e6f64](https://github.com/zouhangwithsweet/fisand-doc/commit/d1e6f64c6d218f5b48c731a6ee0335663596aea9))
+
+### Features
+
+- add share handler ([3c0f2e6](https://github.com/zouhangwithsweet/fisand-doc/commit/3c0f2e6f2746ade84507b50fb314c02fe7de21bb))
+- support codepen ([49b9096](https://github.com/zouhangwithsweet/fisand-doc/commit/49b9096d6a57effc150cd60e931573928f007ff1))
+
 ## [0.0.12](https://github.com/zouhangwithsweet/fisand-doc/compare/v0.0.11...v0.0.12) (2021-08-25)
 
 ## [0.0.11](https://github.com/zouhangwithsweet/fisand-doc/compare/v0.0.10...v0.0.11) (2021-08-24)

@@ -78,11 +78,13 @@ ${(decodeURIComponent(data.styles) || '').trim()}
           (s, s1) => `const ${s1} = Vue`
         )
         .replace(
-          /import \w+ from \\?("|')mand-mobile-next\/(\w+)\\?("|')(;?)/g,
+          /import {?.*}? from \\?("|')mand-mobile-next\/(\w+-?\w+)\\?("|')(;?)/g,
           (s, s1, s2) =>
-            `const {${s2.replace(/\w/, (s: any) =>
-              s.toUpperCase()
-            )}} = MandMobile`
+            `const {${s2
+              .replace(/\w/, (s: any) => s.toUpperCase())
+              .replace(/-(\w)/, (s: any, s1: string) =>
+                s1.toUpperCase()
+              )}} = MandMobile`
         )
     : 'var Main = {}'
   jsTpl += `

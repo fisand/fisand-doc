@@ -1,5 +1,7 @@
 # 快速开始
 
+[![npm](https://img.shields.io/npm/v/fisand-doc.svg)](https://www.npmjs.com/package/fisand-doc) [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/zouhangwithsweet/fisand-doc)
+
 ## 安装
 
 ### 使用 npm

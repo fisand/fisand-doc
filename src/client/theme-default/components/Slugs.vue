@@ -32,15 +32,17 @@ const copyLink = () => {
       <p class="operation">
         <ph:share class="share inline-block relative cursor-pointer" @click="copyLink" />
       </p>
-      <li
-        v-for="{ level, title, slug } of headers"
-        :class="`slug-item level-${level}`"
-        :key="title"
-      >
-        <a :href="'#' + slug" class="link">
-          {{ title }}
-        </a>
-      </li>
+      <div class="item-wrapper">
+        <li
+          v-for="{ level, title, slug } of headers"
+          :class="`slug-item level-${level}`"
+          :key="title"
+        >
+          <a :href="'#' + slug" class="link">
+            {{ title }}
+          </a>
+        </li>
+      </div>
     </ul>
   </teleport>
 </template>
@@ -73,6 +75,8 @@ const copyLink = () => {
 }
 .right-slug {
   position: fixed;
+  display: flex;
+  flex-direction: column;
   top: var(--header-height);
   right: 0;
   max-height: calc(100% - var(--header-height) - 10rem);
@@ -90,6 +94,11 @@ const copyLink = () => {
   .right-slug {
     transform: translateX(100%);
   }
+}
+
+.item-wrapper {
+  flex: 1;
+  overflow: auto;
 }
 
 .operation {

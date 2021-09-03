@@ -16,6 +16,12 @@ module.exports = {
   themeConfig: {
     repo: 'https://github.com/zouhangwithsweet/fisand-doc',
     logo: 'https://pt-starimg.didistatic.com/static/starimg/img/TvCSBVuy1Y1612669180297.jpeg',
+    nav: [
+      {
+        text: 'TypeScript',
+        link: '/typescript'
+      }
+    ],
     codepen: true
   }
 }

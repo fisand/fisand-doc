@@ -30,7 +30,7 @@ const copyLink = () => {
   <teleport to="body">
     <ul class="right-slug">
       <p class="operation">
-        <ph:share class="share inline-block relative cursor-pointer" @click="copyLink" />
+        <bi:link-45deg class="share inline-block relative cursor-pointer" @click="copyLink" />
       </p>
       <div class="item-wrapper">
         <li
@@ -102,10 +102,15 @@ const copyLink = () => {
 }
 
 .operation {
-  padding-left: 28px;
-  border-left: 2px solid #ebedf1;
+  padding-left: 0px;
+  /* border-left: 2px solid #ebedf1; */
 }
 .share {
-  color: rgba(60, 60, 67, .5)
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  color: rgba(60, 60, 67, .5);
+  background: #ebedf1;
+  border-radius: 50%;
 }
 </style>

@@ -52,9 +52,30 @@ const copyHandler = () => {
     <div class="fisand-demo flex flex-col mb-8 rounded-lg border-1 border-gray-200 border-solid last:mb-0 divide-y">
       <!-- title -->
       <div
-        class="text-sm py-2 px-2 <sm:text-md border-bottom border-gray-200 select-none"
-        v-text="demoInfo.title || '基础'"
-      ></div>
+        class="flex justify-between items-center text-sm py-2 px-2 <sm:text-md border-bottom border-gray-200 select-none"
+      >
+        <p class="m-0">{{ demoInfo.title || '基础' }}</p>
+        <!-- operation -->
+        <div
+          class="relative flex px-2 text-center"
+          :class="'justify-end'"
+        >
+          <la:codepen 
+            v-show="codepen"
+            class="text-md cursor-pointer <sm:text-sm"
+            @click="codepenHandler"
+          />
+          <ph:code
+            class="text-md cursor-pointer ml-4 <sm:text-sm"
+            :class="[
+              demoInfo.showCodeExample ? 'active-code' : '',
+            ]"
+            @click="
+              demoInfo.showCodeExample = !demoInfo.showCodeExample
+            "
+          />
+        </div>
+      </div>
       <div
         v-if="demoInfo.describe"
         class="text-xs my-1 <sm:text-xs <sm:my-1"
@@ -63,27 +84,6 @@ const copyHandler = () => {
       <!-- demo -->
       <div class="demo-component p-4px">
         <component :is="demo"></component>
-      </div>
-      <!-- operation -->
-      <div
-        class="relative flex py-2 px-2 text-center border-gray-200 border-top-dotted"
-        :class="codepen ? 'justify-between' : 'justify-end'"
-      >
-        <la:codepen 
-          v-show="codepen"
-          class="text-md cursor-pointer <sm:text-sm"
-          @click="codepenHandler"
-        />
-        <ph:code
-          class="text-md cursor-pointer ml-12 <sm:text-sm"
-          :class="[
-            demoInfo.showCodeExample ? 'active-code' : '',
-          ]"
-          @click="
-            demoInfo.showCodeExample = !demoInfo.showCodeExample
-          "
-        />
-
       </div>
       <div
         v-if="demoInfo.showCodeExample"

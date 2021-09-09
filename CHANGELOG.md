@@ -1,3 +1,9 @@
+## [0.0.17](https://github.com/zouhangwithsweet/fisand-doc/compare/v0.0.16...v0.0.17) (2021-09-09)
+
+### Features
+
+- improve slugs style for long docs ([5b2099c](https://github.com/zouhangwithsweet/fisand-doc/commit/5b2099caf5c3f2bcf7ebc1e9c92affbf3a43b708))
+
 ## [0.0.16](https://github.com/zouhangwithsweet/fisand-doc/compare/v0.0.15...v0.0.16) (2021-08-30)
 
 ### Bug Fixes

@@ -138,6 +138,7 @@ function throttleAndDebounce(fn: () => void, delay: number): () => void {
   overflow: hidden;
   padding: 4px 0 4px 16px;
   margin: 0;
+  height: 30px;
   /* border-left: 2px solid #ebedf1; */
 }
 

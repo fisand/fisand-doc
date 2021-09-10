@@ -1,3 +1,9 @@
+## [0.0.18](https://github.com/zouhangwithsweet/fisand-doc/compare/v0.0.17...v0.0.18) (2021-09-10)
+
+### Features
+
+- improve right slug style ([0a8d51a](https://github.com/zouhangwithsweet/fisand-doc/commit/0a8d51a0d5cad7bb479fe02d865d822eef79e16a))
+
 ## [0.0.17](https://github.com/zouhangwithsweet/fisand-doc/compare/v0.0.16...v0.0.17) (2021-09-09)
 
 ### Features

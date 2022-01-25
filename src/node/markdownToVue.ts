@@ -1,4 +1,5 @@
 import fs from 'fs'
+import os from 'os'
 import path from 'path'
 import matter from 'gray-matter'
 import LRUCache from 'lru-cache'
@@ -107,8 +108,13 @@ export function createMarkdownToVueRenderFn(
       demoSrc = data.fisand_compnent
         .map((comp: { name: string; path: string; glob?: boolean }) => {
           const globRelativePath = path.relative(path.dirname(file), comp.path)
+          const importPath =
+            os.platform() === 'win32'
+              ? path.join(globRelativePath, '/*.vue').replace(/\\/g, '/')
+              : path.join(globRelativePath, '/*.vue')
+
           return comp.glob
-            ? `const demos = import.meta.globEager('${globRelativePath}/*.vue')`
+            ? `const demos = import.meta.globEager('${importPath}')`
             : `import ${comp.name} from '${comp.path}'`
         })
         .join('\n')

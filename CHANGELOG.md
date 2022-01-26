@@ -1,3 +1,9 @@
+## [0.0.19](https://github.com/zouhangwithsweet/fisand-doc/compare/v0.0.18...v0.0.19) (2022-01-26)
+
+### Bug Fixes
+
+- fix path error in win32 ([c1a4ba4](https://github.com/zouhangwithsweet/fisand-doc/commit/c1a4ba4966032ea0c9210ec24191307676f8b7a6))
+
 ## [0.0.18](https://github.com/zouhangwithsweet/fisand-doc/compare/v0.0.17...v0.0.18) (2021-09-10)
 
 ### Features

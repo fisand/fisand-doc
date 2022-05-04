@@ -2,8 +2,9 @@ import { createServer as createViteServer, ServerOptions } from 'vite'
 import path from 'path'
 import WindiCSS from 'vite-plugin-windicss'
 import aspectRatio from 'windicss/plugin/aspect-ratio'
-import Components from 'vite-plugin-components'
-import Icons, { ViteIconsResolver } from 'vite-plugin-icons'
+import Components from 'unplugin-vue-components/vite'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 import { resolveConfig } from './config'
 import { createVitePressPlugin } from './plugin'
 
@@ -20,10 +21,11 @@ export async function createServer(
     plugins: [
       ...createVitePressPlugin(root, config),
       Components({
+        extensions: ['vue', 'md', 'svg'],
         dirs: [path.resolve(__dirname, '../client/theme-default/components')],
-        customLoaderMatcher: (id) => id.endsWith('.md'),
-        customComponentResolvers: [
-          ViteIconsResolver({
+        include: [/\.vue$/, /\.md$/],
+        resolvers: [
+          IconsResolver({
             componentPrefix: ''
           })
         ]

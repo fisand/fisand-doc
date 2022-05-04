@@ -7,8 +7,9 @@ import { RollupOutput } from 'rollup'
 import { build, BuildOptions, UserConfig as ViteUserConfig } from 'vite'
 import WindiCSS from 'vite-plugin-windicss'
 import aspectRatio from 'windicss/plugin/aspect-ratio'
-import Components from 'vite-plugin-components'
-import Icons, { ViteIconsResolver } from 'vite-plugin-icons'
+import Components from 'unplugin-vue-components/vite'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 import { createVitePressPlugin } from '../plugin'
 
 export const okMark = '\x1b[32m✓\x1b[0m'
@@ -45,12 +46,11 @@ export async function bundle(
     plugins: [
       ...createVitePressPlugin(root, config, ssr, pageToHashMap),
       Components({
-        dirs: [
-          path.resolve(__dirname, '../../client/theme-default/components')
-        ],
-        customLoaderMatcher: (id) => id.endsWith('.md'),
-        customComponentResolvers: [
-          ViteIconsResolver({
+        extensions: ['vue', 'md', 'svg'],
+        dirs: [path.resolve(__dirname, '../client/theme-default/components')],
+        include: [/\.vue$/, /\.md$/],
+        resolvers: [
+          IconsResolver({
             componentPrefix: ''
           })
         ]

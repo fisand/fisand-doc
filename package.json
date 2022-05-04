@@ -1,6 +1,6 @@
 {
   "name": "fisand-doc",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "Vite & Vue powered static site generator",
   "main": "dist/node/index.js",
   "typings": "types/index.d.ts",
@@ -92,9 +92,9 @@
     "prismjs": "^1.23.0",
     "sirv": "^1.0.12",
     "stylus": "^0.54.8",
+    "unplugin-icons": "^0.14.3",
+    "unplugin-vue-components": "^0.19.3",
     "vite": "^2.4.4",
-    "vite-plugin-components": "^0.13.2",
-    "vite-plugin-icons": "^0.6.5",
     "vite-plugin-windicss": "^1.2.7",
     "vue": "^3.2.1",
     "windicss": "^3.1.7"
